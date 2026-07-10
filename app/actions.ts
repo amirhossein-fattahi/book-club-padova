@@ -4,6 +4,7 @@ import {
   saveGroupSignup,
   saveFacilitatorApplication
 } from '@/lib/db';
+import { notifyNewSignup, notifyNewFacilitator } from '@/lib/notify';
 
 export type FormState = {
   status: 'idle' | 'success' | 'error';
@@ -39,6 +40,7 @@ export async function joinGroupAction(
 
   try {
     await saveGroupSignup(row);
+    await notifyNewSignup(row);
     return { status: 'success', name: row.name };
   } catch {
     return { status: 'error', error: 'server' };
@@ -75,6 +77,7 @@ export async function facilitatorAction(
 
   try {
     await saveFacilitatorApplication(row);
+    await notifyNewFacilitator(row);
     return { status: 'success', name: row.name, book: row.book_title };
   } catch {
     return { status: 'error', error: 'server' };
