@@ -1,0 +1,74 @@
+# Going live — step by step
+
+The site is already on GitHub: **https://github.com/amirhossein-fattahi/book-club-padova**
+
+You need two free accounts: **Supabase** (database) and **Vercel** (hosting). Total
+cost to be fully online: **€0**. A custom `.it` domain is optional (see the bottom).
+
+---
+
+## 1. Database — Supabase (free)
+
+1. Go to [supabase.com](https://supabase.com) → **Start your project** → sign in with GitHub.
+2. **New project**. Pick a name (e.g. `book-club-padova`), a strong database password
+   (save it somewhere), and the region **Central EU (Frankfurt)** — closest to Padua.
+3. Wait ~2 minutes for it to provision.
+4. Left sidebar → **SQL Editor** → **New query**. Open `supabase/schema.sql` from this
+   repo, paste its contents, and click **Run**. This creates the two tables.
+5. Left sidebar → **Project Settings** (gear) → **API**. Copy two values:
+   - **Project URL** → this is `SUPABASE_URL`
+   - **service_role** secret key (under "Project API keys") → this is `SUPABASE_SERVICE_ROLE_KEY`
+
+> The service_role key is a secret. Only ever put it in Vercel's env vars (step 2) or a
+> local `.env.local` — never commit it.
+
+**Where you'll see submissions:** Supabase → **Table Editor** → `group_signups` and
+`facilitator_applications`. Every join/application shows up here as a row; you can
+sort, search, and export to CSV.
+
+---
+
+## 2. Hosting — Vercel (free)
+
+1. Go to [vercel.com](https://vercel.com) → **Sign up / Log in with GitHub**.
+2. **Add New… → Project** → **Import** `book-club-padova`.
+3. Framework is auto-detected as **Next.js**. Leave **Root Directory** as `./` (this repo
+   *is* the app — no subfolder needed).
+4. Expand **Environment Variables** and add the two from step 1:
+   | Name | Value |
+   |------|-------|
+   | `SUPABASE_URL` | your Project URL |
+   | `SUPABASE_SERVICE_ROLE_KEY` | your service_role key |
+5. Click **Deploy**. After ~1 minute you get a live URL like
+   `https://book-club-padova.vercel.app`.
+
+From now on, every `git push` to `main` auto-deploys. 🎉
+
+---
+
+## 3. Custom `.it` domain (optional, ~€5–9/year)
+
+Hosting stays free on Vercel; you only pay for the domain name.
+
+1. Buy a `.it` domain at a cheap registrar — e.g. **OVH** (~€4–7/yr), **Aruba**
+   (first year often ~€1, then ~€9/yr), or **Namecheap**. Pick something like
+   `circolodellibropadova.it`.
+2. In Vercel → your project → **Settings → Domains** → add the domain.
+3. Vercel shows you two DNS records (an `A` record and/or `CNAME`). Copy them into your
+   registrar's DNS settings. HTTPS is issued automatically.
+4. Done — total ongoing cost is just the domain (well under €10/year in year one).
+
+If you'd rather not bother, the free `*.vercel.app` URL works perfectly and costs nothing.
+
+---
+
+## Local development
+
+```bash
+npm install
+cp .env.example .env.local   # then fill in your Supabase values (optional locally)
+npm run dev                  # http://localhost:3000
+```
+
+Without `.env.local`, forms still work locally and write to `.data/*.json` so you can
+test the flow. With it, they write to Supabase.
