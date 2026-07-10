@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  @apply bg-parchment text-ink antialiased;
+}
+
+/* Subtle paper texture feel for the whole page background. */
+.bg-paper {
+  background-color: #f7f3ec;
+  background-image: radial-gradient(
+    rgba(169, 113, 74, 0.06) 1px,
+    transparent 1px
+  );
+  background-size: 22px 22px;
+}
+
+/* Smooth focus rings that match the brand. */
+*:focus-visible {
+  outline: 2px solid theme('colors.clay.500');
+  outline-offset: 2px;
+}

@@ -1,0 +1,144 @@
+{
+  "Meta": {
+    "title": "Circolo del Libro — Club del Libro di Padova",
+    "description": "Piccoli gruppi di lettura a Padova, ognuno guidato da un facilitatore appassionato. Scegli un libro, unisciti a un gruppo e incontratevi nei nostri caffè partner."
+  },
+  "Nav": {
+    "brand": "Circolo del Libro",
+    "home": "Home",
+    "groups": "Esplora i gruppi",
+    "facilitator": "Diventa facilitatore",
+    "toggleLabel": "Lingua"
+  },
+  "Home": {
+    "hero": {
+      "badge": "Circoli di lettura a Padova",
+      "title": "Leggiamo insieme, un libro alla volta.",
+      "subtitle": "Il Circolo del Libro riunisce i vicini di casa in piccoli e accoglienti gruppi di lettura. Ogni circolo esplora un solo libro, guidato da un facilitatore locale, davanti a un caffè nei locali più amati di Padova.",
+      "exploreCta": "Esplora i gruppi",
+      "facilitatorCta": "Diventa facilitatore",
+      "stat1": "circoli di lettura",
+      "stat2": "caffè partner",
+      "stat3": "lettori e in crescita"
+    },
+    "how": {
+      "title": "Come funziona",
+      "subtitle": "Tre semplici passi: da lettore curioso a un posto al tavolo.",
+      "step1": {
+        "title": "Scegli un libro",
+        "desc": "Sfoglia i circoli attivi e trova una storia che ti parla — dai classici senza tempo alle nuove voci più audaci."
+      },
+      "step2": {
+        "title": "Unisciti a un gruppo",
+        "desc": "Prenota uno dei posti limitati. I gruppi restano piccoli di proposito, così ogni voce viene ascoltata."
+      },
+      "step3": {
+        "title": "Incontratevi nei caffè",
+        "desc": "Ritrovati con il tuo circolo in un caffè partner di Padova, per conversazioni calorose e un caffè ancora più caldo."
+      }
+    },
+    "cta": {
+      "title": "Hai un libro che ami condividere?",
+      "subtitle": "Guida il tuo circolo. Ti abbineremo a un caffè, ti aiuteremo a radunare i lettori e terremo il tuo espresso sempre caldo.",
+      "button": "Diventa facilitatore"
+    }
+  },
+  "Groups": {
+    "title": "Circoli di lettura attivi",
+    "subtitle": "Trova la tua prossima lettura e prenota un posto. Nuovi circoli aprono ogni mese.",
+    "facilitatorLabel": "Facilitatore",
+    "meetsLabel": "Incontri",
+    "locationLabel": "Dove",
+    "seatsLeft": "{count, plural, =0 {Nessun posto disponibile} one {# posto disponibile} other {# posti disponibili}}",
+    "full": "Tutto esaurito",
+    "join": "Unisciti al gruppo",
+    "atTime": "il {day} alle {time}",
+    "empty": "Nessun circolo attivo al momento — torna presto a trovarci!"
+  },
+  "JoinModal": {
+    "title": "Unisciti a «{book}»",
+    "subtitle": "Facilitato da {facilitator} · il {day} alle {time}",
+    "name": "Nome completo",
+    "namePlaceholder": "Giulia Rossi",
+    "email": "Email",
+    "emailPlaceholder": "tu@esempio.com",
+    "phone": "Numero di telefono",
+    "phonePlaceholder": "+39 340 123 4567",
+    "cancel": "Annulla",
+    "submit": "Conferma il posto",
+    "successTitle": "Ci sei! 🎉",
+    "successBody": "Grazie, {name}. Abbiamo prenotato il tuo posto per «{book}». Il facilitatore ti invierà presto i dettagli via email.",
+    "close": "Chiudi"
+  },
+  "Facilitator": {
+    "title": "Diventa facilitatore",
+    "subtitle": "Trasforma un libro che ami in una comunità. I facilitatori accendono la conversazione, mantengono il circolo accogliente e stabiliscono il ritmo di lettura.",
+    "whatTitle": "Cosa fa un facilitatore?",
+    "whatBody": "Non devi essere un accademico o un critico professionista — basta essere un lettore appassionato. Scegli un libro, imposta un ritmo e guida discussioni amichevoli. Al luogo e alla logistica pensiamo noi.",
+    "roleTitle": "Il ruolo, in breve",
+    "role1": "Scegliere un libro e un ritmo di lettura comodo",
+    "role2": "Ospitare un piccolo gruppo (6–10 lettori) in un caffè partner",
+    "role3": "Preparare qualche domanda per avviare la discussione",
+    "role4": "Mantenere il circolo caloroso, inclusivo e puntuale",
+    "perksTitle": "I vantaggi",
+    "perk1": {
+      "title": "Caffè gratis",
+      "desc": "A ogni incontro, la tua consumazione è offerta dal caffè partner."
+    },
+    "perk2": {
+      "title": "Guida una comunità",
+      "desc": "Costruisci amicizie durature attorno alle storie che ti stanno più a cuore."
+    },
+    "perk3": {
+      "title": "Prima scelta sui libri",
+      "desc": "Proponi qualsiasi titolo ti appassioni — sei tu a decidere la lista di lettura."
+    },
+    "formTitle": "Candidati come facilitatore",
+    "form": {
+      "name": "Nome completo",
+      "namePlaceholder": "Marco Bianchi",
+      "email": "Email",
+      "emailPlaceholder": "tu@esempio.com",
+      "bookTitle": "Titolo del libro",
+      "bookTitlePlaceholder": "Il nome della rosa",
+      "bookAuthor": "Autore del libro",
+      "bookAuthorPlaceholder": "Umberto Eco",
+      "why": "Perché vuoi facilitare questo libro?",
+      "whyPlaceholder": "Raccontaci cosa significa per te questo libro e perché darebbe vita a belle conversazioni…",
+      "preferredDay": "Giorno preferito per gli incontri",
+      "preferredTime": "Orario preferito",
+      "selectDay": "Seleziona un giorno",
+      "submit": "Invia candidatura",
+      "successTitle": "Candidatura ricevuta! 📚",
+      "successBody": "Grazie, {name}. Abbiamo ricevuto la tua proposta per facilitare «{book}». Il nostro team la esaminerà e ti risponderà entro pochi giorni.",
+      "again": "Invia un'altra"
+    }
+  },
+  "Days": {
+    "monday": "lunedì",
+    "tuesday": "martedì",
+    "wednesday": "mercoledì",
+    "thursday": "giovedì",
+    "friday": "venerdì",
+    "saturday": "sabato",
+    "sunday": "domenica"
+  },
+  "Genres": {
+    "classic": "Classico",
+    "literary": "Narrativa letteraria",
+    "mystery": "Giallo",
+    "scifi": "Fantascienza",
+    "nonfiction": "Saggistica",
+    "poetry": "Poesia"
+  },
+  "Errors": {
+    "invalid": "Controlla i campi e riprova.",
+    "server": "Qualcosa è andato storto da parte nostra. Riprova tra un momento.",
+    "submitting": "Invio in corso…"
+  },
+  "Footer": {
+    "tagline": "Una comunità di lettori a Padova.",
+    "madeWith": "Fatto con cura per gli amanti dei libri.",
+    "rights": "Tutti i diritti riservati."
+  }
+}
