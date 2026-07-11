@@ -49,8 +49,8 @@ export default async function HomePage({
 
             <dl className="mt-10 grid max-w-md grid-cols-3 gap-4">
               <Stat value="6" label={t('hero.stat1')} />
-              <Stat value="5" label={t('hero.stat2')} />
-              <Stat value="120+" label={t('hero.stat3')} />
+              <Stat value="2" label={t('hero.stat2')} />
+              <Stat value="30+" label={t('hero.stat3')} />
             </dl>
           </div>
 
