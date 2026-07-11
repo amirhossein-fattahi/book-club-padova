@@ -1,5 +1,11 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
+import {
+  HeroReadingScene,
+  StepChooseBook,
+  StepJoinGroup,
+  StepMeetCafe
+} from '@/components/Illustrations';
 
 export default async function HomePage({
   params
@@ -48,26 +54,10 @@ export default async function HomePage({
             </dl>
           </div>
 
-          {/* Decorative stack of book spines */}
+          {/* Warm reading-table illustration */}
           <div className="relative hidden lg:block">
-            <div className="mx-auto flex h-80 w-full max-w-sm items-end justify-center gap-3">
-              {[
-                ['#5c3a29', '#a9714a', 'h-64'],
-                ['#284636', '#3f6b57', 'h-72'],
-                ['#3b3a5a', '#6b6a95', 'h-56'],
-                ['#7a3b52', '#c0708c', 'h-80'],
-                ['#1f3a4d', '#2f6f8f', 'h-64']
-              ].map(([from, to, h], i) => (
-                <div
-                  key={i}
-                  className={`${h} w-14 rounded-t-md shadow-card`}
-                  style={{
-                    backgroundImage: `linear-gradient(160deg, ${from}, ${to})`
-                  }}
-                />
-              ))}
-            </div>
-            <p className="mt-4 text-center text-sm italic text-ink/40">
+            <HeroReadingScene className="mx-auto w-full max-w-md" />
+            <p className="mt-2 text-center text-sm italic text-ink/40">
               Padova · dal 2024
             </p>
           </div>
@@ -87,16 +77,19 @@ export default async function HomePage({
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             <Step
               n="1"
+              illustration={<StepChooseBook />}
               title={t('how.step1.title')}
               desc={t('how.step1.desc')}
             />
             <Step
               n="2"
+              illustration={<StepJoinGroup />}
               title={t('how.step2.title')}
               desc={t('how.step2.desc')}
             />
             <Step
               n="3"
+              illustration={<StepMeetCafe />}
               title={t('how.step3.title')}
               desc={t('how.step3.desc')}
             />
@@ -134,12 +127,25 @@ function Stat({ value, label }: { value: string; label: string }) {
   );
 }
 
-function Step({ n, title, desc }: { n: string; title: string; desc: string }) {
+function Step({
+  n,
+  title,
+  desc,
+  illustration
+}: {
+  n: string;
+  title: string;
+  desc: string;
+  illustration: React.ReactNode;
+}) {
   return (
     <div className="relative rounded-2xl border border-clay-100 bg-white p-6 shadow-card">
-      <span className="flex h-10 w-10 items-center justify-center rounded-full bg-clay-100 font-serif text-lg font-bold text-clay-700">
-        {n}
-      </span>
+      <div className="flex items-center gap-3">
+        {illustration}
+        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-clay-100 font-serif text-base font-bold text-clay-700">
+          {n}
+        </span>
+      </div>
       <h3 className="mt-4 font-serif text-xl font-bold text-ink">{title}</h3>
       <p className="mt-2 text-sm text-ink/70">{desc}</p>
     </div>

@@ -1,6 +1,7 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { groups } from '@/data/groups';
 import GroupCard from '@/components/GroupCard';
+import { GroupsBanner } from '@/components/Illustrations';
 
 export default async function GroupsPage({
   params
@@ -14,6 +15,7 @@ export default async function GroupsPage({
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:py-16">
       <header className="mx-auto max-w-2xl text-center">
+        <GroupsBanner className="mx-auto mb-6 w-full max-w-lg" />
         <h1 className="font-serif text-4xl font-bold text-ink">{t('title')}</h1>
         <p className="mt-3 text-ink/70">{t('subtitle')}</p>
       </header>

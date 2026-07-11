@@ -1,5 +1,6 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import FacilitatorForm from '@/components/FacilitatorForm';
+import { FacilitatorScene } from '@/components/Illustrations';
 
 function CoffeeIcon() {
   return (
@@ -66,9 +67,14 @@ export default async function FacilitatorPage({
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:py-16">
-      <header className="mx-auto max-w-2xl text-center">
-        <h1 className="font-serif text-4xl font-bold text-ink">{t('title')}</h1>
-        <p className="mt-4 text-lg text-ink/70">{t('subtitle')}</p>
+      <header className="grid items-center gap-8 md:grid-cols-2">
+        <div className="text-center md:text-left">
+          <h1 className="font-serif text-4xl font-bold text-ink">
+            {t('title')}
+          </h1>
+          <p className="mt-4 text-lg text-ink/70">{t('subtitle')}</p>
+        </div>
+        <FacilitatorScene className="mx-auto w-full max-w-sm" />
       </header>
 
       {/* What is a facilitator */}
