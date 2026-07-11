@@ -134,6 +134,7 @@
   "Errors": {
     "invalid": "Controlla i campi e riprova.",
     "server": "Qualcosa è andato storto da parte nostra. Riprova tra un momento.",
+    "captcha": "Completa la verifica anti-spam e riprova.",
     "submitting": "Invio in corso…"
   },
   "Footer": {

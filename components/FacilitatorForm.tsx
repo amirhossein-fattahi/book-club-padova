@@ -3,6 +3,7 @@
 import { useActionState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { facilitatorAction, type FormState } from '@/app/actions';
+import TurnstileWidget from './TurnstileWidget';
 
 const DAY_KEYS = [
   'monday',
@@ -116,6 +117,10 @@ export default function FacilitatorForm() {
           </select>
         </label>
         <Text label={t('preferredTime')} name="time" type="time" required={false} />
+      </div>
+
+      <div className="mt-5">
+        <TurnstileWidget />
       </div>
 
       {state.status === 'error' && (

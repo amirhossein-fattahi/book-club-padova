@@ -4,6 +4,7 @@ import { useActionState, useEffect } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import type { BookGroup } from '@/data/groups';
 import { joinGroupAction, type FormState } from '@/app/actions';
+import TurnstileWidget from './TurnstileWidget';
 
 interface Props {
   group: BookGroup;
@@ -118,6 +119,8 @@ export default function JoinGroupModal({ group, onClose }: Props) {
                 placeholder={t('phonePlaceholder')}
                 type="tel"
               />
+
+              <TurnstileWidget />
 
               {state.status === 'error' && (
                 <p className="text-sm font-medium text-red-600">

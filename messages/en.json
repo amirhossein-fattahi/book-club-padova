@@ -134,6 +134,7 @@
   "Errors": {
     "invalid": "Please check the fields and try again.",
     "server": "Something went wrong on our end. Please try again in a moment.",
+    "captcha": "Please complete the anti-spam check and try again.",
     "submitting": "Submitting…"
   },
   "Footer": {

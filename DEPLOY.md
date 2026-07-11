@@ -62,6 +62,42 @@ If you'd rather not bother, the free `*.vercel.app` URL works perfectly and cost
 
 ---
 
+## Email notifications (Resend) — setup & troubleshooting
+
+1. Sign up at [resend.com](https://resend.com) **with the email you want alerts sent to**.
+2. Verify that email (check your inbox) — required before Resend will send anything.
+3. **API Keys → Create** → copy the key (`re_…`).
+4. In **Vercel → Settings → Environment Variables**, add for **Production**:
+   - `RESEND_API_KEY` = your `re_…` key
+   - `NOTIFY_EMAIL` = the same email you signed up to Resend with
+5. **Redeploy** (Vercel → Deployments → ⋯ → Redeploy) — env changes only take effect after a redeploy.
+
+**Not getting emails?** Submit a test, then open **Vercel → your project → Logs** (or the
+Functions tab of the latest deployment) and look for a `[notify]` line:
+- `Skipped: … not set` → the env vars aren't reaching this deployment (add them to
+  Production and redeploy).
+- `Resend responded 403 …` with "testing emails" → in Resend's free mode you can only send
+  to **your own** verified account email. Make sure `NOTIFY_EMAIL` is exactly that address,
+  and that you verified it. (To send to any address, verify a domain in Resend later.)
+- `Email sent to …` → it worked; check your spam folder.
+
+## Bot protection (Cloudflare Turnstile) — free CAPTCHA
+
+Stops bots from flooding your database. Free and unlimited.
+
+1. Sign up at [cloudflare.com](https://dash.cloudflare.com) → **Turnstile** → **Add site**.
+2. Domain: `book-club-padova.vercel.app` (add your custom domain too if you have one).
+   Widget type: **Managed** (recommended).
+3. Copy the **Site Key** and **Secret Key**.
+4. In **Vercel → Settings → Environment Variables**, add for **Production**:
+   - `NEXT_PUBLIC_TURNSTILE_SITE_KEY` = the Site Key
+   - `TURNSTILE_SECRET_KEY` = the Secret Key
+5. **Redeploy.** A verification widget now appears on both forms, and submissions with a
+   missing/invalid token are rejected before anything is saved.
+
+Until these keys are set, the forms still work (protected by the built-in honeypot);
+the CAPTCHA simply doesn't appear.
+
 ## Local development
 
 ```bash

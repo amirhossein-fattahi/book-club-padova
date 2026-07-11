@@ -19,9 +19,15 @@ const NOTIFY_EMAIL = process.env.NOTIFY_EMAIL;
 const NOTIFY_FROM = process.env.NOTIFY_FROM || 'Circolo del Libro <onboarding@resend.dev>';
 
 async function send(subject: string, html: string) {
-  if (!RESEND_API_KEY || !NOTIFY_EMAIL) return; // Not configured — skip quietly.
+  if (!RESEND_API_KEY || !NOTIFY_EMAIL) {
+    console.warn(
+      '[notify] Skipped: RESEND_API_KEY or NOTIFY_EMAIL is not set.',
+      { hasKey: Boolean(RESEND_API_KEY), hasEmail: Boolean(NOTIFY_EMAIL) }
+    );
+    return;
+  }
   try {
-    await fetch('https://api.resend.com/emails', {
+    const res = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${RESEND_API_KEY}`,
@@ -34,8 +40,16 @@ async function send(subject: string, html: string) {
         html
       })
     });
-  } catch {
+    if (!res.ok) {
+      // Resend rejected it — log the reason so it's visible in Vercel logs.
+      const detail = await res.text();
+      console.error(`[notify] Resend responded ${res.status}: ${detail}`);
+    } else {
+      console.log(`[notify] Email sent to ${NOTIFY_EMAIL} ("${subject}")`);
+    }
+  } catch (err) {
     // Never let a notification failure break the user's submission.
+    console.error('[notify] Request to Resend failed:', err);
   }
 }
 
