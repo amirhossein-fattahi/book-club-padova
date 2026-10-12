@@ -6,6 +6,13 @@ forms are enabled only after durable storage passes its health check and a publi
 organizer email is configured. A stored registration expresses interest; the
 organizer still needs to follow up and confirm books, hosts and venues.
 
+**Verified on 12 October 2026:** the existing Supabase project has been resumed,
+the additive migration is applied, and both live interest forms save correctly.
+The older 7 reader records and 1 facilitator application remain in their legacy
+tables. New applications go to `registrations`. The two labelled website tests
+have status `withdrawn`. The guide below is for future setup and recovery; you do
+not need to create another project or replace working keys.
+
 ## 1. Restore an existing Supabase project or create one
 
 1. Open the [Supabase dashboard](https://supabase.com/dashboard) using the account
@@ -148,7 +155,8 @@ Before publishing recruitment, confirm these operational details:
 - Registrations are interest requests. Host selection and event confirmation are
   handled personally; the site does not automatically allocate seats.
 - Private exports exist and a failed/paused database is addressed before more
-  invitations are shared. Remove labelled test data after verification.
+  invitations are shared. Mark labelled test records `withdrawn` after verification
+  and exclude them from recruitment counts; delete them under the retention policy.
 
 For the founding launch, recruit 3–4 prospective facilitators and secure one café.
 A first meetup can introduce the club, hear proposed books and choose the reading

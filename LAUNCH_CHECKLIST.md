@@ -37,18 +37,27 @@ unpatched `braces` advisory; see the scoped assessment in `README.md`.
 Local browser checks confirm reader error recovery and saving, an Italian helper
 submission with no book/phone, and no horizontal overflow at a 320 × 568 viewport.
 
-Live registration must be tested against the intended Supabase project after
-deploying this revision. If storage is unavailable,
-the website shows a contact-email fallback instead of accepting an unsaved form.
-Follow `DEPLOY.md` for recovery, migration, redeployment and verification steps.
+The changes are pushed to GitHub and deployed at
+https://book-club-padova.vercel.app. Live verification on 12 October confirmed
+that the English reader form and Italian facilitator form both save to the
+original Supabase project. The facilitator test supplied no book or phone.
+A repeated submission returned the duplicate message and left one record for
+that email/role. The two clearly labelled website-verification records are marked
+`withdrawn`; exclude them from recruitment counts. The public health endpoint
+returns HTTP 200 with registration open. Organizer email-alert delivery has not
+been independently verified; the database is the source of truth.
+
+If storage becomes unavailable, the website shows a contact-email fallback
+instead of accepting an unsaved form. Follow `DEPLOY.md` for recovery, migration,
+redeployment, private backups and verification steps.
 
 ## Your organizer plan to 17 October
 
 1. **12 October — today:** Send personal invitations to 8–12 potential helpers. Ask for
    a clear commitment to facilitate one short book introduction/discussion,
    their meeting language and availability. Aim to secure 3–4 people by
-   13 October. Start collecting reader interest once live saving is verified;
-   use the published email while storage is being restored.
+   13 October. Live saving is verified, so you can start collecting reader
+   interest using the website and published organizer email.
 2. **12 October:** Approach Caffein, Steampower and one backup venue. Ask about
    one 60–90 minute slot for 6–10 people, noise, seating, accessibility and
    whether each person should buy a drink. Confirm any fee or minimum spend.
