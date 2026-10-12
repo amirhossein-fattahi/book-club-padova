@@ -1,116 +1,147 @@
-# Circolo del Libro — Padua Book Club
+# Circolo del Libro — forming a book club in Padova
 
-A bilingual (English 🇬🇧 / Italian 🇮🇹) website for a local book club in Padua, built with
-**Next.js (App Router)**, **Tailwind CSS**, and **next-intl**, with a **Supabase** database
-and optional **Resend** email notifications.
+A bilingual English/Italian recruitment website for a new book club. The club is
+being formed: there are no confirmed books, readers, facilitators or café partners
+at the starting point. The website invites readers, prospective facilitators and
+venues to express interest; a registration is not a seat reservation or an event
+confirmation.
 
-Small reading groups, each focused on a single book and led by a **Facilitator**. Readers
-can join an existing circle or apply to lead their own.
+- Website: [book-club-padova.vercel.app](https://book-club-padova.vercel.app)
+- Repository: [amirhossein-fattahi/book-club-padova](https://github.com/amirhossein-fattahi/book-club-padova)
+- Hosting and database setup: [DEPLOY.md](DEPLOY.md)
+- Current recruitment launch checklist: [LAUNCH_CHECKLIST.md](LAUNCH_CHECKLIST.md)
+- Launch review and plan: [REVIEW_AND_LAUNCH_PLAN.md](REVIEW_AND_LAUNCH_PLAN.md)
 
-- 🌐 **Live site:** https://book-club-padova.vercel.app  ( 🇬🇧 [/en](https://book-club-padova.vercel.app/en) · 🇮🇹 [/it](https://book-club-padova.vercel.app/it) )
-- 💻 **Repository:** https://github.com/amirhossein-fattahi/book-club-padova
+## What is included
 
-> Hosted free on Vercel. Every push to `main` auto-deploys.
+- English and Italian pages and a language switcher.
+- Interest registration for readers, facilitators and potential venues. Facilitators
+  can suggest their first book; venue interest does not create a partnership.
+- Server validation, duplicate handling, honeypot and a persistent database rate
+  limiter. Cloudflare Turnstile can be enabled with a matched pair of keys.
+- Durable storage in Supabase once configured. Public forms remain unavailable
+  when production storage is not healthy or no effective organizer email is set.
+- Optional organizer alerts through Resend. These do not email the applicant or
+  replace the organizer's follow-up work.
+- Privacy/contact information and QR assets in `public/qr-code.{svg,png}`.
 
-## Features
+The first launch goal is recruitment: find 3–4 prospective facilitators and secure
+one confirmed café for a founding meetup. Hold an introductory discussion, choose
+the first book and agree a future reading date; do not promise a full novel read
+within the recruitment week.
 
-- **Homepage** — hero with the concept, a "how it works" section (Choose a book → Join a group → Meet at our cafés), and two calls-to-action.
-- **Explore Groups** — responsive grid of active circles. Each card shows the book cover, title, author, facilitator, meeting day/time, café location, and remaining seats, plus a **Join Group** button with a modal form (name, email, phone).
-- **Become a Facilitator** — explains the role and perks, with an application form (name, email, book proposal, motivation, preferred day/time).
-- **Working forms** — submissions are validated server-side (Next.js server actions), saved to **Supabase** (Postgres), and protected by a honeypot against spam.
-- **Email on signup** *(optional)* — get an email the moment someone joins or applies, via Resend. Disabled automatically if not configured.
-- **i18n** — full English/Italian translations via `next-intl`, with a language toggle in the navbar. Routes are locale-prefixed (`/en`, `/it`).
-- **QR code** — a print-ready QR for the live site lives in `public/qr-code.svg` (vector, best for posters) and `public/qr-code.png`.
+## Run locally on Windows
 
-## Tech stack
+Install Node.js 22 or newer. Open PowerShell in this folder and run:
 
-| Layer | Choice |
-|-------|--------|
-| Framework | Next.js 15 (App Router) |
-| Styling | Tailwind CSS |
-| i18n | next-intl (EN / IT) |
-| Database | Supabase (Postgres) |
-| Email | Resend (optional) |
-| Hosting | Vercel (free tier) |
-
-## Getting started (local)
-
-```bash
-cd book-club-padova
-npm install
-cp .env.example .env.local   # optional — fill in Supabase values to use the real DB
-npm run dev                  # http://localhost:3000  (redirects to /en or /it)
+```powershell
+npm ci
+Copy-Item .env.example .env.local
+npm run dev
 ```
 
-Without `.env.local`, forms still work locally and write to `.data/*.json` so you can test
-the full flow. With it, they write to Supabase.
+Open <http://localhost:3000>. `start.ps1` also starts the development server and
+stops if first-time dependency installation fails. After pulling dependency
+changes, run `npm ci` again to match `package-lock.json`.
+
+Edit `.env.local` before testing forms. `NEXT_PUBLIC_CONTACT_EMAIL` can override the
+confirmed public organizer email defined in `lib/site.ts`. Leave both Supabase values blank to use
+**development-only** `.data/registrations.json` storage. This file contains personal
+data and is ignored by Git. To test durable storage, fill in the Supabase URL and
+server-only secret after applying `supabase/schema.sql`.
+
+`npm run build` followed by `npm start` runs production mode. Production never uses
+local JSON as its registration database. Do not advertise a local development
+server as the public signup website.
 
 ## Environment variables
 
-| Variable | Required | Purpose |
-|----------|----------|---------|
-| `SUPABASE_URL` | for the live DB | Your project URL, e.g. `https://xxxx.supabase.co` (no `/rest/v1`) |
-| `SUPABASE_SERVICE_ROLE_KEY` | for the live DB | Supabase **secret** key (`sb_secret_…`) — server-only |
-| `RESEND_API_KEY` | optional | Enables email-on-signup (from resend.com) |
-| `NOTIFY_EMAIL` | optional | Where signup alerts are sent |
+Copy `.env.example` for the complete list. Local changes require a server restart;
+Vercel changes require a fresh deployment.
 
-Set these in **Vercel → Settings → Environment Variables** for production, and in
-`.env.local` for local dev. Never commit `.env.local`.
+| Variable | Use |
+|---|---|
+| `SUPABASE_URL` | Required for public storage; project URL, without `/rest/v1`. |
+| `SUPABASE_SERVICE_ROLE_KEY` | Required server-only Supabase secret/service-role key. Never use a public/anon key here. |
+| `NEXT_PUBLIC_CONTACT_EMAIL` | Optional override for the public organizer inbox in `lib/site.ts`, also used for privacy requests. |
+| `NEXT_PUBLIC_SITE_URL` | Optional canonical website URL for metadata. |
+| `RESEND_API_KEY`, `NOTIFY_EMAIL` | Optional organizer email alerts; both are needed. |
+| `NOTIFY_FROM` | Optional Resend sender on a verified domain. |
+| `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY` | Optional CAPTCHA; set both or leave both blank. |
+| `TURNSTILE_EXPECTED_HOSTNAME` | Optional extra token check; hostname only. |
+| `RATE_LIMIT_SECRET` | Optional separate random HMAC secret; otherwise derived from the server-only Supabase key. |
 
-## Editing content
+Only `NEXT_PUBLIC_` values are intended to be public. Never put API secret keys in
+those variables or commit `.env.local`.
 
-- **Books / groups** — edit `data/groups.ts` (title, author, facilitator, café, day/time,
-  seats, cover colors). You can edit it directly on GitHub (✏️ → commit) and it auto-deploys.
-- **Text & wording** — edit `messages/en.json` and `messages/it.json` (edit both languages).
-- **Homepage stats / taglines** — in `app/[locale]/page.tsx`.
+## Verify changes
 
-## Project structure
-
-```
-book-club-padova/
-├── app/
-│   ├── actions.ts              # Server actions: validate + save + notify
-│   └── [locale]/
-│       ├── layout.tsx          # <html>, navbar, footer, i18n provider
-│       ├── page.tsx            # Homepage
-│       ├── groups/page.tsx     # Explore Groups
-│       └── facilitator/page.tsx# Become a Facilitator
-├── components/                 # Navbar, LanguageToggle, GroupCard, modal, forms…
-├── data/groups.ts              # Active groups (edit this to change the books)
-├── lib/
-│   ├── db.ts                   # Supabase writes (+ dev local-file fallback)
-│   └── notify.ts               # Resend email notifications (optional)
-├── i18n/                       # next-intl routing / navigation / request config
-├── messages/{en,it}.json       # Translation strings
-├── supabase/schema.sql         # Database tables (run once in Supabase)
-├── scripts/generate-qr.mjs     # Regenerate the QR code for a URL
-├── public/qr-code.{svg,png}    # Print-ready QR for the live site
-├── middleware.ts               # Locale detection & redirects
-├── DEPLOY.md                   # Step-by-step Supabase + Vercel + domain guide
-└── tailwind.config.ts
+```powershell
+npm run lint
+npm run typecheck
+npm test
+npm run build
+npm audit
 ```
 
-## Deployment
+`npm run check:storage` checks the configured Supabase registrations schema and
+rate limiter without creating registrations or printing personal records. It
+loads local environment files through Next's environment loader. A failed check
+must be fixed before public recruitment; successful storage health alone does not
+prove a complete form submission.
 
-Already deployed on Vercel. For the full step-by-step (Supabase setup, env vars, custom
-`.it` domain), see **[DEPLOY.md](DEPLOY.md)**. In short:
+After deployment, test both languages and one clearly labelled registration using
+an organizer-controlled email, then verify it in Supabase. Test duplicate/error
+states and keyboard/mobile access. See [DEPLOY.md](DEPLOY.md) for launch checks.
+The GitHub checks workflow runs lint, type checks, tests and a production build.
 
-1. Create a free **Supabase** project → run `supabase/schema.sql` → copy the URL + secret key.
-2. Import this repo on **Vercel** (Root Directory `./`) → add the env vars → **Deploy**.
-3. Every subsequent `git push` to `main` redeploys automatically.
+## Maintaining registrations
 
-Viewing submissions: **Supabase → Table Editor → `group_signups` / `facilitator_applications`**.
+Readers register via `/groups#reader-interest`; facilitators and potential venues
+use `/facilitator`. Open Supabase → Table Editor → `registrations`. One organizer should check this
+table daily, respond individually and maintain contact/status notes privately.
+Facilitator applications need a real conversation and agreed book/date before
+being described as a running group. Only publish venues after explicit agreement.
 
-## Regenerating the QR code
+Check storage before sharing an invitation and during recruitment. Supabase Free
+can pause after a week of inactivity and does not include automatic backups; keep
+private exports and follow the site's six-month recruitment retention policy.
+The organizer reviews records monthly and deletes expired or requested records,
+including copies in exports. This is an organizer task, not an automatic deletion
+job. See
+[Supabase's plan details](https://supabase.com/pricing).
 
-If the live URL changes:
+Old `group_signups` and `facilitator_applications` tables are preserved by the
+additive schema update. New recruitment submissions go to `registrations`; inspect
+legacy tables separately if the previous version received real submissions.
 
-```bash
-node scripts/generate-qr.mjs "https://your-new-url/it"
+## Content and QR codes
+
+Edit both `messages/en.json` and `messages/it.json` when changing wording. Pages
+live under `app/[locale]`. Confirm event facts before adding them to the site;
+remove an event promptly if it is cancelled. Revisit the privacy page if the
+organizer, data use, processors or retention policy changes.
+
+Regenerate the QR when the public URL changes, then scan the actual printed code:
+
+```powershell
+node scripts/generate-qr.mjs "https://book-club-padova.vercel.app/it"
 ```
 
-## Adding a language
+The app uses Next.js 15, React 19, next-intl 4, Tailwind 3 and Supabase. Security
+resolutions in `package.json` update Next's older PostCSS dependency, Sharp's native
+image libraries and Tailwind's selector parser without migrating Tailwind to v4.
+Recheck these overrides during dependency updates and verify the resulting build
+and rendered pages before deployment.
 
-1. Add the locale to `i18n/routing.ts` (`locales` array).
-2. Create `messages/<locale>.json` (copy `en.json` and translate).
-3. The navbar toggle picks it up automatically.
+Dependency verification on 12 October 2026: `npm ci` completed and
+`npm audit --omit=dev` reported zero vulnerabilities. The full audit reported
+seven high-severity entries stemming from one `braces` stack-exhaustion advisory
+in the development lint/CSS tool chain
+([GHSA-vfj7-8cjw-p6xm](https://github.com/advisories/GHSA-vfj7-8cjw-p6xm)).
+Build patterns are controlled by this repository; the public forms do not feed
+patterns into these tools. The currently suggested audit fixes either downgrade
+the Next lint configuration or migrate Tailwind to v4. Keep untrusted patterns
+out of the build tools and review a compatible upstream patch when available;
+do not run `npm audit fix --force` as a launch shortcut. Recheck the audit after
+dependency updates.

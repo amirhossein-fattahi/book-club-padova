@@ -1,7 +1,7 @@
 import createMiddleware from 'next-intl/middleware';
 import { routing } from './i18n/routing';
 
-// Handles locale detection + redirects (e.g. "/" -> "/en", "/groups" -> "/en/groups").
+// Detects a visitor's language; Italian is the fallback when none matches.
 export default createMiddleware(routing);
 
 export const config = {

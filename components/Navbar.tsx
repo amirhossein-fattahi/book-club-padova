@@ -37,7 +37,8 @@ export default function Navbar() {
   const links = [
     { href: '/', label: t('home') },
     { href: '/groups', label: t('groups') },
-    { href: '/facilitator', label: t('facilitator') }
+    { href: '/facilitator', label: t('facilitator') },
+    { href: '/contact', label: t('contact') }
   ] as const;
 
   const isActive = (href: string) =>
@@ -85,7 +86,7 @@ export default function Navbar() {
             type="button"
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
-            aria-label="Menu"
+            aria-label={t('menu')}
             className="rounded-md p-2 text-ink hover:bg-clay-100"
           >
             <svg viewBox="0 0 24 24" className="h-6 w-6" aria-hidden="true">

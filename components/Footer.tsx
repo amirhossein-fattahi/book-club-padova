@@ -1,10 +1,12 @@
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
+import { getContactEmail } from '@/lib/site';
 
 export default function Footer() {
   const t = useTranslations('Footer');
   const nav = useTranslations('Nav');
   const year = new Date().getFullYear();
+  const contact = getContactEmail();
 
   return (
     <footer className="mt-16 border-t border-clay-100 bg-parchment/60">
@@ -29,6 +31,9 @@ export default function Footer() {
             >
               {nav('facilitator')}
             </Link>
+            <Link href="/contact" className="text-ink/70 hover:text-clay-700">{t('contact')}</Link>
+            <Link href="/privacy" className="text-ink/70 hover:text-clay-700">{t('privacy')}</Link>
+            {contact && <a href={'mailto:' + contact} className="break-all text-ink/70 hover:text-clay-700">{contact}</a>}
           </nav>
         </div>
         <div className="mt-8 flex flex-col gap-1 border-t border-clay-100 pt-6 text-xs text-ink/50 sm:flex-row sm:justify-between">

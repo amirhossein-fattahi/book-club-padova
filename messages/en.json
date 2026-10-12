@@ -1,118 +1,177 @@
 {
   "Meta": {
-    "title": "Circolo del Libro — Padua Book Club",
-    "description": "Small reading groups in Padua, each led by a passionate facilitator. Choose a book, join a group, and meet at our partner cafés."
+    "title": "Circolo del Libro — Start a book club in Padova",
+    "description": "Help start a welcoming book club in Padova. We are recruiting 3–4 facilitators, looking for one café, and gathering reader interest."
   },
   "Nav": {
     "brand": "Circolo del Libro",
     "home": "Home",
-    "groups": "Explore Groups",
-    "facilitator": "Become a Facilitator",
-    "toggleLabel": "Language"
+    "groups": "Reader interest",
+    "facilitator": "Help start the club",
+    "contact": "Contact",
+    "privacy": "Privacy",
+    "toggleLabel": "Language",
+    "menu": "Menu",
+    "skip": "Skip to main content"
   },
   "Home": {
     "hero": {
-      "badge": "Reading circles in Padua",
-      "title": "Read together, one book at a time.",
-      "subtitle": "Circolo del Libro brings neighbours together in small, friendly reading groups. Each circle explores a single book, guided by a local facilitator, over coffee at Padua's most-loved cafés.",
-      "exploreCta": "Explore Groups",
-      "facilitatorCta": "Become a Facilitator",
-      "stat1": "reading circles",
-      "stat2": "partner cafés",
-      "stat3": "readers & counting"
+      "badge": "A new book club is taking shape",
+      "title": "Let’s start a book club in Padova.",
+      "subtitle": "We’re bringing together readers and people who would enjoy leading a small discussion. Help shape the first circles, suggest a book, or join the reader interest list.",
+      "exploreCta": "I’d like to read with others",
+      "facilitatorCta": "I’d like to help or facilitate",
+      "goalTitle": "Our starting goals",
+      "facilitatorGoal": "facilitators to recruit",
+      "cafeGoal": "café to agree with",
+      "goalNote": "These are goals. No facilitators, books, dates or venues are confirmed yet.",
+      "caption": "Padova · a community in the making"
     },
     "how": {
-      "title": "How it works",
-      "subtitle": "Three simple steps from curious reader to a seat at the table.",
+      "title": "Build the first circles with us",
+      "subtitle": "Register your interest now. We’ll agree the details with the founding team.",
       "step1": {
-        "title": "Choose a book",
-        "desc": "Browse the active circles and find a story that speaks to you — from timeless classics to bold new voices."
+        "title": "Share your interest",
+        "desc": "Tell us whether you’d like to read, facilitate, co-host or help find a welcoming venue. You don’t need a book proposal to begin."
       },
       "step2": {
-        "title": "Join a group",
-        "desc": "Reserve one of the limited seats. Groups stay small on purpose, so every voice is heard."
+        "title": "Shape the first meetup",
+        "desc": "The organizer will contact interested people to agree meeting language, availability and possible books."
       },
       "step3": {
-        "title": "Meet at our cafés",
-        "desc": "Gather with your circle at a partner café in Padua for warm conversation and even warmer coffee."
+        "title": "Meet when details are confirmed",
+        "desc": "We’ll share the date, venue, cost and reading plan before confirming attendance. An interest registration is not a booking."
       }
     },
     "cta": {
-      "title": "Have a book you love to share?",
-      "subtitle": "Lead your own circle. We'll match you with a café, help you gather readers, and keep your espresso flowing.",
-      "button": "Become a Facilitator"
+      "title": "Could you lead one friendly conversation?",
+      "subtitle": "We’re looking for 3–4 facilitators and one café in Padova. Enthusiasm, curiosity and a welcoming attitude are enough to start. A book proposal is optional.",
+      "venueNote": "The café is still to be agreed. Drinks, costs and any venue support will be confirmed before a meetup is announced.",
+      "button": "Help start the club"
     }
   },
   "Groups": {
-    "title": "Active Reading Circles",
-    "subtitle": "Find your next read and reserve a seat. New circles open every month.",
-    "facilitatorLabel": "Facilitator",
-    "meetsLabel": "Meets",
-    "locationLabel": "Where",
-    "seatsLeft": "{count, plural, =0 {No seats left} one {# seat left} other {# seats left}}",
-    "full": "Fully booked",
-    "join": "Join Group",
-    "atTime": "{day}s at {time}",
-    "empty": "No active circles right now — check back soon!"
-  },
-  "JoinModal": {
-    "title": "Join \"{book}\"",
-    "subtitle": "Facilitated by {facilitator} · {day}s at {time}",
-    "name": "Full name",
-    "namePlaceholder": "Giulia Rossi",
-    "email": "Email",
-    "emailPlaceholder": "you@example.com",
-    "phone": "Phone number",
-    "phonePlaceholder": "+39 340 123 4567",
-    "cancel": "Cancel",
-    "submit": "Confirm my seat",
-    "successTitle": "You're in! 🎉",
-    "successBody": "Thanks, {name}. We've reserved your seat for \"{book}\". The facilitator will email you the details soon.",
-    "close": "Close"
+    "title": "Interested in reading together?",
+    "subtitle": "Join the founding reader interest list. We’ll contact you as the first circles take shape.",
+    "empty": "The first circles are still being organized.",
+    "detailsPending": "No book, facilitator, café or meeting date is confirmed yet. We’ll publish the details when the arrangements are agreed.",
+    "formTitle": "Join the reader interest list",
+    "formIntro": "Tell us your preferred language and availability. No payment or account is needed, and this does not reserve a seat.",
+    "meetingLanguage": "Meeting language",
+    "either": "Italian and/or English, to agree",
+    "cost": "Cost",
+    "requestNote": "Attendance is confirmed separately by the organizer."
   },
   "Facilitator": {
-    "title": "Become a Facilitator",
-    "subtitle": "Turn a book you love into a community. Facilitators spark the conversation, keep the circle welcoming, and set the reading pace.",
-    "whatTitle": "What does a facilitator do?",
-    "whatBody": "You don't need to be an academic or a professional critic — just an enthusiastic reader. Pick a book, set a rhythm, and guide friendly discussions. We handle the venue and the logistics.",
-    "roleTitle": "The role, in short",
-    "role1": "Choose a book and a comfortable reading pace",
-    "role2": "Host a small group (6–10 readers) at a partner café",
-    "role3": "Prepare a few questions to spark discussion",
-    "role4": "Keep the circle warm, inclusive, and on time",
-    "perksTitle": "The perks",
-    "perk1": {
-      "title": "Free coffee",
-      "desc": "Every session, your drink is on the house at our partner café."
+    "badge": "Seeking 3–4 founding facilitators",
+    "title": "Help start the club.",
+    "subtitle": "Lead a book discussion, co-host, help spread the word or suggest a venue. Join the founding team even if you haven’t chosen a book yet.",
+    "whatTitle": "What would a facilitator do?",
+    "whatBody": "Propose a book you’d enjoy discussing, prepare a few open questions, and help everyone feel welcome. You don’t need to be a teacher or a literary expert.",
+    "commitment": "Start with one conversation about the club and your availability. Dates, frequency and the venue will be agreed together before you commit to a circle.",
+    "roleTitle": "Ways to contribute",
+    "role1": "Facilitate a small, welcoming reading circle",
+    "role2": "Suggest books and a realistic reading pace",
+    "role3": "Co-host, help with outreach or introduce a possible café",
+    "role4": "Agree a meeting language and make space for everyone",
+    "helpTitle": "A founding team, one café, a shared start",
+    "helpBody": "Our goal is 3–4 facilitators and one agreed café in Padova. No hosts or venue partnerships are confirmed. We’ll discuss the practical details with applicants; free drinks and other perks are not promised.",
+    "formTitle": "Register your interest in helping",
+    "formIntro": "Choose how you’d like to contribute. Name, email and language preference are enough; book and availability details are optional."
+  },
+  "Registration": {
+    "requiredFields": "Name, email and meeting language are required. Other details are optional.",
+    "purpose": "We use these details to respond to your request and organize the first club meetings.",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "phoneHint": "Optional. Email is enough for us to contact you.",
+    "optional": "optional",
+    "meetingLanguage": "Preferred meeting language",
+    "selectLanguage": "Choose a language",
+    "languageIt": "Italian",
+    "languageEn": "English",
+    "languageEither": "Either / bilingual",
+    "availability": "Availability",
+    "availabilityPlaceholder": "For example: weekday evenings or Saturday afternoons",
+    "role": "How would you like to help?",
+    "roles": {
+      "facilitator": "Facilitate a discussion",
+      "cohost": "Co-host / help organize",
+      "outreach": "Help invite readers",
+      "venue": "Help find a café"
     },
-    "perk2": {
-      "title": "Lead a community",
-      "desc": "Build lasting friendships around the stories you care about most."
+    "proposalHint": "Have a book in mind? Add it here, or leave this section blank.",
+    "bookTitle": "Suggested book",
+    "bookTitlePlaceholder": "A book you would enjoy discussing",
+    "bookAuthor": "Author",
+    "bookAuthorPlaceholder": "Author, if known",
+    "why": "Anything else you’d like to share?",
+    "whyPlaceholder": "What interests you, a book idea, or how you could help…",
+    "privacyText": "Before submitting, please read how we use and protect your details.",
+    "privacyLink": "Read the privacy notice",
+    "submitReader": "Register reader interest",
+    "submitFacilitator": "Register interest in helping",
+    "submitting": "Saving your interest…",
+    "savedTitle": "Your interest is saved.",
+    "savedBody": "Thank you, {name}. The organizer will contact you about the club and confirm meeting details when they are agreed. This is not a seat reservation.",
+    "duplicateBody": "We already have an interest registration for this email and role. No duplicate was created. Contact the organizer if you’d like to change your details.",
+    "unavailableTitle": "Online registration is temporarily unavailable.",
+    "unavailableBody": "We can’t save registrations reliably right now. Please email the organizer to register your interest or try again later.",
+    "contact": "Email the organizer",
+    "captchaLoading": "Loading the anti-spam check…",
+    "captchaError": "The anti-spam check could not load. Try again.",
+    "captchaExpired": "The anti-spam check expired. Please try again.",
+    "captchaRetry": "Retry anti-spam check",
+    "errors": {
+      "invalid": "Please check the highlighted fields. Your details have been kept.",
+      "server": "Your interest could not be saved. Your details are still here; please retry or email the organizer.",
+      "captcha": "Please complete a fresh anti-spam check and try again. Your details have been kept.",
+      "rateLimit": "Too many attempts. Please wait ten minutes before trying again, or email the organizer.",
+      "configuration": "Online registration is temporarily unavailable. Your details have not been saved; please email the organizer."
     },
-    "perk3": {
-      "title": "First pick of books",
-      "desc": "Propose any title you're passionate about — you set the reading list."
-    },
-    "formTitle": "Apply to facilitate",
-    "form": {
-      "name": "Full name",
-      "namePlaceholder": "Marco Bianchi",
-      "email": "Email",
-      "emailPlaceholder": "you@example.com",
-      "bookTitle": "Book title",
-      "bookTitlePlaceholder": "The Name of the Rose",
-      "bookAuthor": "Book author",
-      "bookAuthorPlaceholder": "Umberto Eco",
-      "why": "Why do you want to facilitate this book?",
-      "whyPlaceholder": "Tell us what this book means to you and why it would spark great conversation…",
-      "preferredDay": "Preferred meeting day",
-      "preferredTime": "Preferred time",
-      "selectDay": "Select a day",
-      "submit": "Submit application",
-      "successTitle": "Application received! 📚",
-      "successBody": "Thank you, {name}. We've received your proposal to facilitate \"{book}\". Our team will review it and get back to you within a few days.",
-      "again": "Submit another"
-    }
+    "fieldInvalid": "Please enter a valid value within the stated limit."
+  },
+  "Privacy": {
+    "title": "Your privacy",
+    "intro": "This notice explains how the forming Padova book club uses the details you choose to submit.",
+    "updated": "Updated 11 October 2026 · notice version 2026-10-11",
+    "controllerTitle": "Who is responsible",
+    "controllerBody": "Amirhossein Fattahi organizes Circolo del Libro in Padova and is responsible for the interest registrations. Contact the organizer for questions about your data.",
+    "dataTitle": "What we collect",
+    "dataBody": "Name, email, reader/helper role, preferred meeting language and the time of registration. Phone, availability, book suggestions and a message are optional. We record the version of this notice. Please avoid sharing sensitive personal information in free-text fields.",
+    "purposeTitle": "Why we use it",
+    "purposeBody": "To respond to your interest, coordinate the founding team and contact you about the first circles. Our legal basis is the legitimate interest in handling requests that people submit to this club. You can object or ask us to stop contacting you. Registering does not subscribe you to unrelated advertising.",
+    "retentionTitle": "How long we keep it",
+    "retentionBody": "Recruitment details are kept for up to six months. The organizer reviews the register monthly and deletes details that are no longer needed, or earlier when you request it. If you join an ongoing circle, we will explain any further use before retaining details for that purpose.",
+    "securityTitle": "Who can access it",
+    "securityBody": "The organizer and people specifically helping manage registrations can access the private register. Hosting is provided by Vercel and storage by Supabase when connected. Resend may deliver organizer alerts, and Cloudflare Turnstile may verify submissions when enabled. Registration details are not displayed publicly or sent to cafés as a mailing list.",
+    "transfersTitle": "Service providers",
+    "transfersBody": "Some providers may process information outside the European Economic Area. Their published privacy terms describe processing locations and transfer safeguards. We use these services only to operate the website and handle your request.",
+    "rightsTitle": "Your choices and rights",
+    "rightsBody": "You can request access, correction or deletion, object to processing, or ask for a restriction by emailing the organizer. You can also complain to the Italian data protection authority, Garante per la protezione dei dati personali. Optional fields may be left blank. Leaving the interest list does not affect your ability to contact the club again.",
+    "spamTitle": "Anti-spam and website settings",
+    "spamBody": "To limit abuse, we retain temporary keyed hashes of email and, on supported hosting, network address for rate limiting; these are not published. Locale preferences may use a necessary language cookie. The site does not include advertising trackers. If Turnstile is enabled, Cloudflare processes the verification information.",
+    "contact": "Email the organizer about privacy",
+    "providers": "Provider privacy information",
+    "authority": "Italian data protection authority"
+  },
+  "Contact": {
+    "title": "Contact the organizer",
+    "intro": "Have a question, a café suggestion or an idea for the founding team? Get in touch.",
+    "name": "Amirhossein Fattahi · Circolo del Libro, Padova",
+    "email": "Email the organizer",
+    "statusTitle": "Where we are now",
+    "statusBody": "We’re recruiting 3–4 facilitators and looking for one café. Books, hosts, venue and meeting dates are still to be agreed. We’ll confirm the practical details before inviting people to a meeting.",
+    "reply": "The organizer aims to reply within 24 hours. If you have already registered, use the same email address when asking to update or remove your details.",
+    "privacy": "Read the privacy notice"
+  },
+  "Footer": {
+    "tagline": "A book club taking shape in Padova.",
+    "madeWith": "Readers, facilitators and a shared beginning.",
+    "rights": "All rights reserved.",
+    "contact": "Contact",
+    "privacy": "Privacy"
   },
   "Days": {
     "monday": "Monday",
@@ -122,24 +181,5 @@
     "friday": "Friday",
     "saturday": "Saturday",
     "sunday": "Sunday"
-  },
-  "Genres": {
-    "classic": "Classic",
-    "literary": "Literary fiction",
-    "mystery": "Mystery",
-    "scifi": "Sci-fi",
-    "nonfiction": "Non-fiction",
-    "poetry": "Poetry"
-  },
-  "Errors": {
-    "invalid": "Please check the fields and try again.",
-    "server": "Something went wrong on our end. Please try again in a moment.",
-    "captcha": "Please complete the anti-spam check and try again.",
-    "submitting": "Submitting…"
-  },
-  "Footer": {
-    "tagline": "A community of readers in Padua.",
-    "madeWith": "Made with care for book lovers.",
-    "rights": "All rights reserved."
   }
 }

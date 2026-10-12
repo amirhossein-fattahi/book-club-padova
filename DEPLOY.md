@@ -1,110 +1,169 @@
-# Going live — step by step
+# Make recruitment registrations reliable
 
-The site is already on GitHub: **https://github.com/amirhossein-fattahi/book-club-padova**
+Use this guide to configure Supabase and deploy the new recruitment site. The
+public website can be viewed without a database, but production registration
+forms are enabled only after durable storage passes its health check and a public
+organizer email is configured. A stored registration expresses interest; the
+organizer still needs to follow up and confirm books, hosts and venues.
 
-You need two free accounts: **Supabase** (database) and **Vercel** (hosting). Total
-cost to be fully online: **€0**. A custom `.it` domain is optional (see the bottom).
+## 1. Restore an existing Supabase project or create one
 
----
+1. Open the [Supabase dashboard](https://supabase.com/dashboard) using the account
+   that owns the project. Check the project status before changing any keys.
+2. If it is paused, use the dashboard's restore/resume action and wait until the
+   project is available. If recovery is unavailable, follow the recovery options
+   shown there or create a replacement project. Keep the old project until any
+   data recovery is resolved; a new project does not recover old registrations.
+3. For a new project, choose the Free plan, a strong database password and an EU
+   region. Save the password in your password manager.
+4. In SQL Editor, create a query, paste the **complete current**
+   `supabase/schema.sql`, then run it. This additive script can be rerun; it creates
+   `public.registrations`, a private persistent rate limiter and the storage-health
+   function. It keeps legacy signup/application tables.
+5. Copy the project URL from the project's Connect dialog or Data API settings.
+   Copy a server secret key from API Keys, or the legacy `service_role` key.
+   The application accepts that server-side key in `SUPABASE_SERVICE_ROLE_KEY`.
 
-## 1. Database — Supabase (free)
+A publishable/`anon` key is not the server key required here. Secret and
+`service_role` keys bypass database row policies and belong only in server
+environment variables. See [Supabase's API key guide](https://supabase.com/docs/guides/getting-started/api-keys).
 
-1. Go to [supabase.com](https://supabase.com) → **Start your project** → sign in with GitHub.
-2. **New project**. Pick a name (e.g. `book-club-padova`), a strong database password
-   (save it somewhere), and the region **Central EU (Frankfurt)** — closest to Padua.
-3. Wait ~2 minutes for it to provision.
-4. Left sidebar → **SQL Editor** → **New query**. Open `supabase/schema.sql` from this
-   repo, paste its contents, and click **Run**. This creates the two tables.
-5. Left sidebar → **Project Settings** (gear) → **API**. Copy two values:
-   - **Project URL** → this is `SUPABASE_URL`
-   - **service_role** secret key (under "Project API keys") → this is `SUPABASE_SERVICE_ROLE_KEY`
+Supabase Free currently pauses inactive projects after a week and has no automatic
+backups. Review [the plan details](https://supabase.com/pricing) and keep a private
+registration export during recruitment. The [backup guide](https://supabase.com/docs/guides/platform/backups)
+explains manual backups. Keep exports outside the repository and delete them under
+the same retention policy as the live records.
 
-> The service_role key is a secret. Only ever put it in Vercel's env vars (step 2) or a
-> local `.env.local` — never commit it.
+## 2. Connect the local project without exposing secrets
 
-**Where you'll see submissions:** Supabase → **Table Editor** → `group_signups` and
-`facilitator_applications`. Every join/application shows up here as a row; you can
-sort, search, and export to CSV.
+In PowerShell inside the repository:
 
----
-
-## 2. Hosting — Vercel (free)
-
-1. Go to [vercel.com](https://vercel.com) → **Sign up / Log in with GitHub**.
-2. **Add New… → Project** → **Import** `book-club-padova`.
-3. Framework is auto-detected as **Next.js**. Leave **Root Directory** as `./` (this repo
-   *is* the app — no subfolder needed).
-4. Expand **Environment Variables** and add the two from step 1:
-   | Name | Value |
-   |------|-------|
-   | `SUPABASE_URL` | your Project URL |
-   | `SUPABASE_SERVICE_ROLE_KEY` | your service_role key |
-5. Click **Deploy**. After ~1 minute you get a live URL like
-   `https://book-club-padova.vercel.app`.
-
-From now on, every `git push` to `main` auto-deploys. 🎉
-
----
-
-## 3. Custom `.it` domain (optional, ~€5–9/year)
-
-Hosting stays free on Vercel; you only pay for the domain name.
-
-1. Buy a `.it` domain at a cheap registrar — e.g. **OVH** (~€4–7/yr), **Aruba**
-   (first year often ~€1, then ~€9/yr), or **Namecheap**. Pick something like
-   `circolodellibropadova.it`.
-2. In Vercel → your project → **Settings → Domains** → add the domain.
-3. Vercel shows you two DNS records (an `A` record and/or `CNAME`). Copy them into your
-   registrar's DNS settings. HTTPS is issued automatically.
-4. Done — total ongoing cost is just the domain (well under €10/year in year one).
-
-If you'd rather not bother, the free `*.vercel.app` URL works perfectly and costs nothing.
-
----
-
-## Email notifications (Resend) — setup & troubleshooting
-
-1. Sign up at [resend.com](https://resend.com) **with the email you want alerts sent to**.
-2. Verify that email (check your inbox) — required before Resend will send anything.
-3. **API Keys → Create** → copy the key (`re_…`).
-4. In **Vercel → Settings → Environment Variables**, add for **Production**:
-   - `RESEND_API_KEY` = your `re_…` key
-   - `NOTIFY_EMAIL` = the same email you signed up to Resend with
-5. **Redeploy** (Vercel → Deployments → ⋯ → Redeploy) — env changes only take effect after a redeploy.
-
-**Not getting emails?** Submit a test, then open **Vercel → your project → Logs** (or the
-Functions tab of the latest deployment) and look for a `[notify]` line:
-- `Skipped: … not set` → the env vars aren't reaching this deployment (add them to
-  Production and redeploy).
-- `Resend responded 403 …` with "testing emails" → in Resend's free mode you can only send
-  to **your own** verified account email. Make sure `NOTIFY_EMAIL` is exactly that address,
-  and that you verified it. (To send to any address, verify a domain in Resend later.)
-- `Email sent to …` → it worked; check your spam folder.
-
-## Bot protection (Cloudflare Turnstile) — free CAPTCHA
-
-Stops bots from flooding your database. Free and unlimited.
-
-1. Sign up at [cloudflare.com](https://dash.cloudflare.com) → **Turnstile** → **Add site**.
-2. Domain: `book-club-padova.vercel.app` (add your custom domain too if you have one).
-   Widget type: **Managed** (recommended).
-3. Copy the **Site Key** and **Secret Key**.
-4. In **Vercel → Settings → Environment Variables**, add for **Production**:
-   - `NEXT_PUBLIC_TURNSTILE_SITE_KEY` = the Site Key
-   - `TURNSTILE_SECRET_KEY` = the Secret Key
-5. **Redeploy.** A verification widget now appears on both forms, and submissions with a
-   missing/invalid token are rejected before anything is saved.
-
-Until these keys are set, the forms still work (protected by the built-in honeypot);
-the CAPTCHA simply doesn't appear.
-
-## Local development
-
-```bash
-npm install
-cp .env.example .env.local   # then fill in your Supabase values (optional locally)
-npm run dev                  # http://localhost:3000
+```powershell
+npm ci
+Copy-Item .env.example .env.local
 ```
 
-Without `.env.local`, forms still work locally and write to `.data/*.json` so you can
-test the flow. With it, they write to Supabase.
+Skip the copy if `.env.local` already exists; preserve its values. Edit the file
+locally and set:
+
+```dotenv
+SUPABASE_URL=https://YOUR-PROJECT.supabase.co
+SUPABASE_SERVICE_ROLE_KEY=YOUR-SERVER-SECRET-KEY
+NEXT_PUBLIC_CONTACT_EMAIL=YOUR-MONITORED-ORGANIZER-EMAIL
+NEXT_PUBLIC_SITE_URL=https://book-club-padova.vercel.app
+```
+
+Replace the placeholders. The contact email and site URL are public. The Supabase
+key is secret. Do not paste it into chat, browser-side code or screenshots.
+The confirmed organizer email in `lib/site.ts` is used when the contact override
+is blank; set the override if the organizer's inbox changes.
+
+Run:
+
+```powershell
+npm run check:storage
+```
+
+This is a read-only check of the registrations schema and rate-limiter function.
+It reports health/counts without printing names or email addresses and does not
+submit a form. If it fails, check project availability, credentials and whether the
+entire current schema ran successfully. Do not work around failure by allowing a
+production JSON fallback.
+
+For development without Supabase, leave both Supabase values blank and run
+`npm run dev`. Submissions then stay in `.data/registrations.json` on this machine.
+That development file is not the public website's database.
+
+## 3. Configure Vercel and deploy
+
+1. Open your existing Vercel project. If none exists, import the
+   [GitHub repository](https://github.com/amirhossein-fattahi/book-club-padova).
+2. Use the Next.js framework preset and repository root `./`. Select Node.js 22
+   or newer in project settings.
+3. In Settings → Environment Variables, set the Supabase URL, server key and
+   `NEXT_PUBLIC_CONTACT_EMAIL` for **Production**. Set `NEXT_PUBLIC_SITE_URL` to
+   your final public origin. Preview deployments need their own intended values;
+   do not accidentally test against production records.
+4. Deploy the current reviewed revision, or redeploy after editing environment
+   values. Environment changes do not update an existing deployment. Public
+   `NEXT_PUBLIC_` values are included at build time.
+5. Open `/en` and `/it` on the resulting public URL. Check that registration is
+   available. A successful build alone does not prove storage is configured.
+
+With a Git integration configured for `main`, subsequent pushes to `main` deploy
+automatically. Verify the deployment status and exact revision before sharing it.
+You can use the existing `*.vercel.app` address for recruitment. A custom domain is
+optional; if added, update the public site URL and regenerate/scan the QR code.
+Check provider plan limits and domain renewal pricing before buying anything.
+
+## 4. Optional organizer email alerts
+
+1. Create a Resend API key and set `RESEND_API_KEY` and `NOTIFY_EMAIL` in Vercel.
+2. With the default `onboarding@resend.dev` sender, use the email belonging to your
+   Resend account as the recipient. To send to other recipients, verify your own
+   domain and set `NOTIFY_FROM` to an address on it. See
+   [Resend's test-domain restrictions](https://resend.com/docs/knowledge-base/403-error-resend-dev-domain).
+3. Redeploy. Test an organizer-controlled registration and check both Supabase and
+   the organizer inbox/spam folder.
+
+Alerts go to the organizer, not to the applicant. Email failures do not erase a
+saved registration. Check `registrations` daily even when alerts are configured.
+Review deployment logs for sanitized error categories if an alert is missing.
+
+## 5. Optional Cloudflare Turnstile
+
+The server's durable rate limiter and honeypot run without CAPTCHA. To add
+Turnstile, create a widget for your production hostname, then set both
+`NEXT_PUBLIC_TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY` and redeploy. Add a custom
+domain to the widget if you use one. `TURNSTILE_EXPECTED_HOSTNAME` can optionally
+require that exact hostname in server verification (no `https://` or path).
+
+Both keys blank is supported; a half-configured pair prevents registration. For
+local/preview testing, use Cloudflare's test keys or add the appropriate allowed
+hostname. Never expose the secret key as a public environment value.
+
+`RATE_LIMIT_SECRET` is optional. If set, use a separate randomly generated secret
+of at least 32 characters; if blank, the server derives the rate-limit HMAC key
+from its Supabase secret. Rate-limit rows contain hashed identifiers, not raw
+emails or IP addresses.
+
+## 6. Verify storage and follow-up before advertising
+
+Use an organizer-controlled email and clearly labelled test details. Complete one
+production interest registration, reload the page and verify the row in Supabase
+→ Table Editor → `registrations`. Confirm that a repeated email/role submission
+does not create a duplicate. Check the Italian and English forms, error messages,
+phone screen layout, keyboard navigation and actual printed QR.
+
+Before publishing recruitment, confirm these operational details:
+
+- The public organizer inbox is monitored and the privacy/contact page accurately
+  names the organizer, purposes, processors, rights and retention/deletion process.
+- Recruitment records and private exports are reviewed monthly and removed after
+  six months or an applicable deletion request. This is a manual organizer task.
+- Someone checks the database daily, replies within the published response time
+  and keeps application/follow-up notes privately.
+- Café names are described as candidates until their owner explicitly agrees.
+  Free drinks, dates, book titles and facilitators are advertised only after confirmation.
+- Registrations are interest requests. Host selection and event confirmation are
+  handled personally; the site does not automatically allocate seats.
+- Private exports exist and a failed/paused database is addressed before more
+  invitations are shared. Remove labelled test data after verification.
+
+For the founding launch, recruit 3–4 prospective facilitators and secure one café.
+A first meetup can introduce the club, hear proposed books and choose the reading
+schedule. Announce its exact address, language, date, duration and refreshments
+only when those details are agreed. No full-book reading deadline is needed for
+that introductory meetup.
+
+## Troubleshooting
+
+| Symptom | Check/action |
+|---|---|
+| Website loads but registration is unavailable | Run the read-only storage check; restore a paused project, apply current schema, verify production env and public contact email, then redeploy. |
+| Missing new submissions | Inspect `registrations`; previous versions used separate legacy tables. Confirm the tested deployment and its database project. |
+| Registration rejected as duplicate | The normalized email already exists for that role. Organizer can follow up on its existing row. |
+| Anti-spam error after editing CAPTCHA env | Set both Turnstile keys or neither; verify hostname/widget configuration and redeploy. |
+| No organizer alert | Verify both Resend env values and recipient/sender restrictions; check the database independently. |
+| Works in dev but fails under `npm start` | Development JSON storage is intentionally unavailable in production; configure Supabase. |
+| SQL/API permission error | Reapply the complete schema using SQL Editor and use a server secret/service-role key, not `anon`. |

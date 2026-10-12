@@ -1,145 +1,185 @@
 {
   "Meta": {
-    "title": "Circolo del Libro — Club del Libro di Padova",
-    "description": "Piccoli gruppi di lettura a Padova, ognuno guidato da un facilitatore appassionato. Scegli un libro, unisciti a un gruppo e incontratevi nei nostri caffè partner."
+    "title": "Circolo del Libro — Un nuovo circolo a Padova",
+    "description": "Aiutaci a creare un circolo del libro a Padova. Cerchiamo 3–4 facilitatori, un caffè e lettori interessati a partecipare."
   },
   "Nav": {
     "brand": "Circolo del Libro",
     "home": "Home",
-    "groups": "Esplora i gruppi",
-    "facilitator": "Diventa facilitatore",
-    "toggleLabel": "Lingua"
+    "groups": "Per i lettori",
+    "facilitator": "Aiuta a creare il circolo",
+    "contact": "Contatti",
+    "privacy": "Privacy",
+    "toggleLabel": "Lingua",
+    "menu": "Menu",
+    "skip": "Vai al contenuto principale"
   },
   "Home": {
     "hero": {
-      "badge": "Circoli di lettura a Padova",
-      "title": "Leggiamo insieme, un libro alla volta.",
-      "subtitle": "Il Circolo del Libro riunisce i vicini di casa in piccoli e accoglienti gruppi di lettura. Ogni circolo esplora un solo libro, guidato da un facilitatore locale, davanti a un caffè nei locali più amati di Padova.",
-      "exploreCta": "Esplora i gruppi",
-      "facilitatorCta": "Diventa facilitatore",
-      "stat1": "circoli di lettura",
-      "stat2": "caffè partner",
-      "stat3": "lettori e in crescita"
+      "badge": "Un nuovo circolo sta prendendo forma",
+      "title": "Creiamo un circolo del libro a Padova.",
+      "subtitle": "Riuniamo lettori e persone che vorrebbero guidare una piccola discussione. Aiutaci a creare i primi gruppi, proponi un libro o lascia il tuo interesse come lettore.",
+      "exploreCta": "Vorrei leggere con altre persone",
+      "facilitatorCta": "Vorrei aiutare o facilitare",
+      "goalTitle": "I nostri obiettivi iniziali",
+      "facilitatorGoal": "facilitatori da coinvolgere",
+      "cafeGoal": "caffè con cui accordarci",
+      "goalNote": "Sono obiettivi: facilitatori, libri, date e sedi non sono ancora confermati.",
+      "caption": "Padova · una comunità che nasce"
     },
     "how": {
-      "title": "Come funziona",
-      "subtitle": "Tre semplici passi: da lettore curioso a un posto al tavolo.",
+      "title": "Costruiamo insieme i primi gruppi",
+      "subtitle": "Lascia il tuo interesse. Concorderemo i dettagli con il gruppo fondatore.",
       "step1": {
-        "title": "Scegli un libro",
-        "desc": "Sfoglia i circoli attivi e trova una storia che ti parla — dai classici senza tempo alle nuove voci più audaci."
+        "title": "Raccontaci il tuo interesse",
+        "desc": "Puoi leggere, facilitare, affiancare l’organizzatore o aiutarci a trovare una sede accogliente. Non serve aver già scelto un libro."
       },
       "step2": {
-        "title": "Unisciti a un gruppo",
-        "desc": "Prenota uno dei posti limitati. I gruppi restano piccoli di proposito, così ogni voce viene ascoltata."
+        "title": "Prepariamo il primo incontro",
+        "desc": "L’organizzatore contatterà le persone interessate per concordare lingua, disponibilità e possibili libri."
       },
       "step3": {
-        "title": "Incontratevi nei caffè",
-        "desc": "Ritrovati con il tuo circolo in un caffè partner di Padova, per conversazioni calorose e un caffè ancora più caldo."
+        "title": "Incontriamoci dopo la conferma",
+        "desc": "Comunicheremo data, sede, costi e lettura prevista prima di confermare la partecipazione. Lasciare il proprio interesse non prenota un posto."
       }
     },
     "cta": {
-      "title": "Hai un libro che ami condividere?",
-      "subtitle": "Guida il tuo circolo. Ti abbineremo a un caffè, ti aiuteremo a radunare i lettori e terremo il tuo espresso sempre caldo.",
-      "button": "Diventa facilitatore"
+      "title": "Vorresti guidare una conversazione?",
+      "subtitle": "Cerchiamo 3–4 facilitatori e un caffè a Padova. Per cominciare bastano entusiasmo, curiosità e voglia di accogliere gli altri. Proporre un libro è facoltativo.",
+      "venueNote": "Il caffè è ancora da concordare. Bevande, costi ed eventuale supporto della sede saranno confermati prima di annunciare un incontro.",
+      "button": "Aiuta a creare il circolo"
     }
   },
   "Groups": {
-    "title": "Circoli di lettura attivi",
-    "subtitle": "Trova la tua prossima lettura e prenota un posto. Nuovi circoli aprono ogni mese.",
-    "facilitatorLabel": "Facilitatore",
-    "meetsLabel": "Incontri",
-    "locationLabel": "Dove",
-    "seatsLeft": "{count, plural, =0 {Nessun posto disponibile} one {# posto disponibile} other {# posti disponibili}}",
-    "full": "Tutto esaurito",
-    "join": "Unisciti al gruppo",
-    "atTime": "il {day} alle {time}",
-    "empty": "Nessun circolo attivo al momento — torna presto a trovarci!"
-  },
-  "JoinModal": {
-    "title": "Unisciti a «{book}»",
-    "subtitle": "Facilitato da {facilitator} · il {day} alle {time}",
-    "name": "Nome completo",
-    "namePlaceholder": "Giulia Rossi",
-    "email": "Email",
-    "emailPlaceholder": "tu@esempio.com",
-    "phone": "Numero di telefono",
-    "phonePlaceholder": "+39 340 123 4567",
-    "cancel": "Annulla",
-    "submit": "Conferma il posto",
-    "successTitle": "Ci sei! 🎉",
-    "successBody": "Grazie, {name}. Abbiamo prenotato il tuo posto per «{book}». Il facilitatore ti invierà presto i dettagli via email.",
-    "close": "Chiudi"
+    "title": "Ti piacerebbe leggere insieme?",
+    "subtitle": "Lascia il tuo interesse come lettore. Ti contatteremo mentre prendono forma i primi gruppi.",
+    "empty": "Stiamo ancora organizzando i primi gruppi.",
+    "detailsPending": "Libro, facilitatore, caffè e data non sono ancora confermati. Pubblicheremo i dettagli dopo aver concordato l’organizzazione.",
+    "formTitle": "Lascia il tuo interesse come lettore",
+    "formIntro": "Indicaci la lingua e la disponibilità che preferisci. Non servono pagamenti o un account. Questo modulo non prenota un posto.",
+    "meetingLanguage": "Lingua dell’incontro",
+    "either": "Italiano e/o inglese, da concordare",
+    "cost": "Costo",
+    "requestNote": "L’organizzatore conferma la partecipazione separatamente."
   },
   "Facilitator": {
-    "title": "Diventa facilitatore",
-    "subtitle": "Trasforma un libro che ami in una comunità. I facilitatori accendono la conversazione, mantengono il circolo accogliente e stabiliscono il ritmo di lettura.",
+    "badge": "Cerchiamo 3–4 facilitatori fondatori",
+    "title": "Aiuta a creare il circolo.",
+    "subtitle": "Guida una discussione, affianca l’organizzatore, invita lettori o suggerisci una sede. Puoi unirti al gruppo fondatore anche senza aver scelto un libro.",
     "whatTitle": "Cosa fa un facilitatore?",
-    "whatBody": "Non devi essere un accademico o un critico professionista — basta essere un lettore appassionato. Scegli un libro, imposta un ritmo e guida discussioni amichevoli. Al luogo e alla logistica pensiamo noi.",
-    "roleTitle": "Il ruolo, in breve",
-    "role1": "Scegliere un libro e un ritmo di lettura comodo",
-    "role2": "Ospitare un piccolo gruppo (6–10 lettori) in un caffè partner",
-    "role3": "Preparare qualche domanda per avviare la discussione",
-    "role4": "Mantenere il circolo caloroso, inclusivo e puntuale",
-    "perksTitle": "I vantaggi",
-    "perk1": {
-      "title": "Caffè gratis",
-      "desc": "A ogni incontro, la tua consumazione è offerta dal caffè partner."
-    },
-    "perk2": {
-      "title": "Guida una comunità",
-      "desc": "Costruisci amicizie durature attorno alle storie che ti stanno più a cuore."
-    },
-    "perk3": {
-      "title": "Prima scelta sui libri",
-      "desc": "Proponi qualsiasi titolo ti appassioni — sei tu a decidere la lista di lettura."
-    },
-    "formTitle": "Candidati come facilitatore",
-    "form": {
-      "name": "Nome completo",
-      "namePlaceholder": "Marco Bianchi",
-      "email": "Email",
-      "emailPlaceholder": "tu@esempio.com",
-      "bookTitle": "Titolo del libro",
-      "bookTitlePlaceholder": "Il nome della rosa",
-      "bookAuthor": "Autore del libro",
-      "bookAuthorPlaceholder": "Umberto Eco",
-      "why": "Perché vuoi facilitare questo libro?",
-      "whyPlaceholder": "Raccontaci cosa significa per te questo libro e perché darebbe vita a belle conversazioni…",
-      "preferredDay": "Giorno preferito per gli incontri",
-      "preferredTime": "Orario preferito",
-      "selectDay": "Seleziona un giorno",
-      "submit": "Invia candidatura",
-      "successTitle": "Candidatura ricevuta! 📚",
-      "successBody": "Grazie, {name}. Abbiamo ricevuto la tua proposta per facilitare «{book}». Il nostro team la esaminerà e ti risponderà entro pochi giorni.",
-      "again": "Invia un'altra"
-    }
+    "whatBody": "Propone un libro che vorrebbe discutere, prepara alcune domande aperte e aiuta tutti a sentirsi accolti. Non serve essere insegnanti o esperti di letteratura.",
+    "commitment": "Cominciamo con una conversazione sul circolo e sulla tua disponibilità. Date, frequenza e sede saranno concordate insieme prima di impegnarti in un gruppo.",
+    "roleTitle": "Come puoi contribuire",
+    "role1": "Facilitare un piccolo gruppo di lettura accogliente",
+    "role2": "Suggerire libri e un ritmo di lettura realistico",
+    "role3": "Affiancare l’organizzatore, invitare lettori o proporre un caffè",
+    "role4": "Concordare la lingua dell’incontro e dare spazio a tutti",
+    "helpTitle": "Un gruppo fondatore, un caffè, un inizio insieme",
+    "helpBody": "L’obiettivo è coinvolgere 3–4 facilitatori e accordarci con un caffè a Padova. Non ci sono ancora facilitatori o sedi confermati. Discuteremo i dettagli pratici con chi si propone; non promettiamo bevande gratuite o altri vantaggi.",
+    "formTitle": "Lascia il tuo interesse ad aiutare",
+    "formIntro": "Scegli come vorresti contribuire. Bastano nome, email e lingua preferita; libro e disponibilità sono facoltativi."
   },
-  "Days": {
-    "monday": "lunedì",
-    "tuesday": "martedì",
-    "wednesday": "mercoledì",
-    "thursday": "giovedì",
-    "friday": "venerdì",
-    "saturday": "sabato",
-    "sunday": "domenica"
+  "Registration": {
+    "requiredFields": "Nome, email e lingua dell’incontro sono obbligatori. Gli altri dettagli sono facoltativi.",
+    "purpose": "Usiamo questi dati per rispondere alla tua richiesta e organizzare i primi incontri del circolo.",
+    "name": "Nome",
+    "email": "Email",
+    "phone": "Telefono",
+    "phoneHint": "Facoltativo. L’email è sufficiente per contattarti.",
+    "optional": "facoltativo",
+    "meetingLanguage": "Lingua preferita per gli incontri",
+    "selectLanguage": "Scegli una lingua",
+    "languageIt": "Italiano",
+    "languageEn": "Inglese",
+    "languageEither": "Entrambe / bilingue",
+    "availability": "Disponibilità",
+    "availabilityPlaceholder": "Ad esempio: sere in settimana o sabato pomeriggio",
+    "role": "Come vorresti aiutare?",
+    "roles": {
+      "facilitator": "Facilitare una discussione",
+      "cohost": "Affiancare / aiutare a organizzare",
+      "outreach": "Aiutare a invitare lettori",
+      "venue": "Aiutare a trovare un caffè"
+    },
+    "proposalHint": "Hai già un libro in mente? Puoi indicarlo qui oppure lasciare questa parte vuota.",
+    "bookTitle": "Libro suggerito",
+    "bookTitlePlaceholder": "Un libro che vorresti discutere",
+    "bookAuthor": "Autore",
+    "bookAuthorPlaceholder": "Autore, se lo conosci",
+    "why": "Vuoi aggiungere qualcosa?",
+    "whyPlaceholder": "Cosa ti interessa, un’idea di libro o come vorresti aiutare…",
+    "privacyText": "Prima di inviare, leggi come usiamo e proteggiamo i tuoi dati.",
+    "privacyLink": "Leggi l’informativa privacy",
+    "submitReader": "Registra il tuo interesse come lettore",
+    "submitFacilitator": "Registra il tuo interesse ad aiutare",
+    "submitting": "Salvataggio in corso…",
+    "savedTitle": "Il tuo interesse è stato salvato.",
+    "savedBody": "Grazie, {name}. L’organizzatore ti contatterà per il circolo e confermerà i dettagli degli incontri quando saranno concordati. Non è una prenotazione.",
+    "duplicateBody": "Abbiamo già una registrazione con questa email e questo ruolo. Non abbiamo creato un duplicato. Contatta l’organizzatore se vuoi modificare i tuoi dati.",
+    "unavailableTitle": "La registrazione online non è momentaneamente disponibile.",
+    "unavailableBody": "Al momento non possiamo salvare le registrazioni in modo affidabile. Scrivi all’organizzatore per lasciare il tuo interesse oppure riprova più tardi.",
+    "contact": "Scrivi all’organizzatore",
+    "captchaLoading": "Caricamento della verifica antispam…",
+    "captchaError": "Non è stato possibile caricare la verifica antispam. Riprova.",
+    "captchaExpired": "La verifica antispam è scaduta. Riprova.",
+    "captchaRetry": "Riprova la verifica antispam",
+    "errors": {
+      "invalid": "Controlla i campi evidenziati. I dati inseriti sono stati mantenuti.",
+      "server": "Non è stato possibile salvare il tuo interesse. I dati sono ancora qui: riprova oppure scrivi all’organizzatore.",
+      "captcha": "Completa una nuova verifica antispam e riprova. I dati sono stati mantenuti.",
+      "rateLimit": "Troppi tentativi. Attendi dieci minuti prima di riprovare oppure scrivi all’organizzatore.",
+      "configuration": "La registrazione online non è momentaneamente disponibile. I tuoi dati non sono stati salvati: scrivi all’organizzatore."
+    },
+    "fieldInvalid": "Inserisci un valore valido entro il limite indicato."
   },
-  "Genres": {
-    "classic": "Classico",
-    "literary": "Narrativa letteraria",
-    "mystery": "Giallo",
-    "scifi": "Fantascienza",
-    "nonfiction": "Saggistica",
-    "poetry": "Poesia"
+  "Privacy": {
+    "title": "La tua privacy",
+    "intro": "Questa informativa spiega come il circolo del libro in formazione a Padova usa i dati che scegli di inviare.",
+    "updated": "Aggiornata l’11 ottobre 2026 · versione 2026-10-11",
+    "controllerTitle": "Chi è responsabile",
+    "controllerBody": "Amirhossein Fattahi organizza Circolo del Libro a Padova ed è responsabile delle registrazioni di interesse. Contatta l’organizzatore per domande sui tuoi dati.",
+    "dataTitle": "Quali dati raccogliamo",
+    "dataBody": "Nome, email, ruolo come lettore o collaboratore, lingua preferita e data della registrazione. Telefono, disponibilità, suggerimenti di libri e messaggio sono facoltativi. Registriamo la versione di questa informativa. Evita di condividere dati personali sensibili nei campi di testo libero.",
+    "purposeTitle": "Perché li usiamo",
+    "purposeBody": "Per rispondere al tuo interesse, coordinare il gruppo fondatore e contattarti sui primi gruppi. La base giuridica è il legittimo interesse a gestire le richieste che le persone inviano al circolo. Puoi opporti o chiederci di non contattarti più. La registrazione non ti iscrive a pubblicità estranee al circolo.",
+    "retentionTitle": "Quanto li conserviamo",
+    "retentionBody": "Conserviamo i dati per il coinvolgimento iniziale fino a sei mesi. L’organizzatore controlla il registro ogni mese ed elimina i dati non più necessari, o prima su tua richiesta. Se partecipi a un gruppo continuativo, spiegheremo gli ulteriori usi prima di conservare i dati per quello scopo.",
+    "securityTitle": "Chi può accedervi",
+    "securityBody": "L’organizzatore e le persone incaricate di gestire le registrazioni possono accedere al registro privato. Il sito è ospitato da Vercel e i dati sono salvati su Supabase quando collegato. Resend può inviare notifiche all’organizzatore e Cloudflare Turnstile può verificare gli invii, se attivati. I dati non vengono pubblicati né inviati ai caffè come lista di contatti.",
+    "transfersTitle": "Fornitori di servizi",
+    "transfersBody": "Alcuni fornitori possono trattare informazioni fuori dallo Spazio economico europeo. Le loro informative pubbliche descrivono luoghi di trattamento e garanzie per i trasferimenti. Usiamo questi servizi solo per far funzionare il sito e gestire la tua richiesta.",
+    "rightsTitle": "Le tue scelte e i tuoi diritti",
+    "rightsBody": "Puoi chiedere accesso, correzione o cancellazione, opporti al trattamento o chiederne la limitazione scrivendo all’organizzatore. Puoi anche presentare un reclamo al Garante per la protezione dei dati personali. I campi facoltativi possono restare vuoti. Uscire dalla lista di interesse non ti impedisce di ricontattare il circolo.",
+    "spamTitle": "Antispam e impostazioni del sito",
+    "spamBody": "Per limitare gli abusi conserviamo temporaneamente hash con chiave dell’email e, sui servizi supportati, dell’indirizzo di rete; non sono pubblicati. La preferenza linguistica può usare un cookie necessario. Il sito non include traccianti pubblicitari. Se Turnstile è attivo, Cloudflare tratta le informazioni di verifica.",
+    "contact": "Scrivi all’organizzatore per la privacy",
+    "providers": "Informative dei fornitori",
+    "authority": "Garante per la protezione dei dati personali"
   },
-  "Errors": {
-    "invalid": "Controlla i campi e riprova.",
-    "server": "Qualcosa è andato storto da parte nostra. Riprova tra un momento.",
-    "captcha": "Completa la verifica anti-spam e riprova.",
-    "submitting": "Invio in corso…"
+  "Contact": {
+    "title": "Contatta l’organizzatore",
+    "intro": "Hai una domanda, un caffè da suggerire o un’idea per il gruppo fondatore? Scrivici.",
+    "name": "Amirhossein Fattahi · Circolo del Libro, Padova",
+    "email": "Scrivi all’organizzatore",
+    "statusTitle": "A che punto siamo",
+    "statusBody": "Cerchiamo 3–4 facilitatori e un caffè. Libri, facilitatori, sede e date sono ancora da concordare. Confermeremo i dettagli pratici prima di invitare le persone a un incontro.",
+    "reply": "L’organizzatore cerca di rispondere entro 24 ore. Se ti sei già registrato, usa la stessa email per chiedere modifiche o cancellare i tuoi dati.",
+    "privacy": "Leggi l’informativa privacy"
   },
   "Footer": {
-    "tagline": "Una comunità di lettori a Padova.",
-    "madeWith": "Fatto con cura per gli amanti dei libri.",
-    "rights": "Tutti i diritti riservati."
+    "tagline": "Un circolo del libro che prende forma a Padova.",
+    "madeWith": "Lettori, facilitatori e un inizio insieme.",
+    "rights": "Tutti i diritti riservati.",
+    "contact": "Contatti",
+    "privacy": "Privacy"
+  },
+  "Days": {
+    "monday": "Lunedì",
+    "tuesday": "Martedì",
+    "wednesday": "Mercoledì",
+    "thursday": "Giovedì",
+    "friday": "Venerdì",
+    "saturday": "Sabato",
+    "sunday": "Domenica"
   }
 }

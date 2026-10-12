@@ -1,82 +1,109 @@
 import 'server-only';
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
-import { promises as fs } from 'node:fs';
 import path from 'node:path';
+import { RegistrationStorageError, type Registration } from './registrations';
+import { checkLocalStorage, saveLocalRegistration } from './local-storage';
+import { checkCaptchaConfiguration, rateLimitKey } from './security';
 
-/**
- * Server-side data layer for form submissions.
- *
- * In production it writes to Supabase (Postgres). When Supabase env vars are
- * not configured (e.g. local development before you've set things up), it falls
- * back to appending to a local JSON file so the forms still work end-to-end.
- */
-
-export interface GroupSignup {
-  group_id: string;
-  group_title: string;
-  name: string;
-  email: string;
-  phone: string;
-  locale: string;
-}
-
-export interface FacilitatorApplication {
-  name: string;
-  email: string;
-  book_title: string;
-  book_author: string;
-  motivation: string;
-  preferred_day: string;
-  preferred_time: string;
-  locale: string;
-}
-
-const SUPABASE_URL = process.env.SUPABASE_URL;
-const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
-
-let cached: SupabaseClient | null = null;
-
-function getSupabase(): SupabaseClient | null {
-  if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) return null;
-  if (!cached) {
-    cached = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
-      auth: { persistSession: false }
-    });
-  }
-  return cached;
-}
-
-/** Dev-only fallback so submissions are visible without a database configured. */
-async function appendLocal(file: string, row: unknown) {
-  if (process.env.NODE_ENV === 'production') {
-    // No writable filesystem on serverless; a real DB must be configured.
-    throw new Error('DATABASE_NOT_CONFIGURED');
-  }
-  const dir = path.join(process.cwd(), '.data');
-  await fs.mkdir(dir, { recursive: true });
-  const target = path.join(dir, file);
-  let existing: unknown[] = [];
+export function checkPersistenceConfiguration(env: Record<string, string | undefined> = process.env): string | null {
+  const url = env.SUPABASE_URL?.trim();
+  const key = env.SUPABASE_SERVICE_ROLE_KEY?.trim();
+  if (!url && !key) return env.NODE_ENV === 'production' ? 'DATABASE_NOT_CONFIGURED' : null;
+  if (!url || !key || key.startsWith('sb_publishable_') || /YOUR[-_]|changeme|placeholder/i.test(`${url} ${key}`)) return 'DATABASE_CONFIGURATION_INVALID';
   try {
-    existing = JSON.parse(await fs.readFile(target, 'utf8'));
-  } catch {
-    existing = [];
+    const parsed = new URL(url);
+    if (parsed.username || parsed.password || parsed.search || parsed.hash || !['', '/'].includes(parsed.pathname)) return 'DATABASE_CONFIGURATION_INVALID';
+    if (parsed.protocol !== 'https:' && !(env.NODE_ENV !== 'production' && parsed.protocol === 'http:' && ['localhost', '127.0.0.1', '[::1]'].includes(parsed.hostname))) return 'DATABASE_CONFIGURATION_INVALID';
+  } catch { return 'DATABASE_CONFIGURATION_INVALID'; }
+  return null;
+}
+
+let cached: { url: string; key: string; client: SupabaseClient } | undefined;
+function getSupabase(): SupabaseClient | null {
+  const code = checkPersistenceConfiguration();
+  if (code) throw new RegistrationStorageError(code);
+  const url = process.env.SUPABASE_URL?.trim();
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
+  if (!url || !key) return null;
+  if (!cached || cached.url !== url || cached.key !== key) {
+    cached = { url, key, client: createClient(url, key, {
+      auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },
+      global: { fetch: (input, init) => {
+        const headers = new Headers(init?.headers);
+        // Secret API keys belong in apikey; only legacy JWTs use Bearer.
+        if (key.startsWith('sb_secret_') && headers.get('Authorization') === `Bearer ${key}`) {
+          headers.delete('Authorization');
+        }
+        return fetch(input, {
+          ...init,
+          headers,
+          signal: init?.signal ? AbortSignal.any([init.signal, AbortSignal.timeout(8000)]) : AbortSignal.timeout(8000)
+        });
+      } }
+    }) };
   }
-  existing.push({ ...(row as object), created_at: new Date().toISOString() });
-  await fs.writeFile(target, JSON.stringify(existing, null, 2), 'utf8');
+  return cached.client;
 }
 
-export async function saveGroupSignup(row: GroupSignup) {
-  const supabase = getSupabase();
-  if (!supabase) return appendLocal('group_signups.json', row);
-  const { error } = await supabase.from('group_signups').insert(row);
-  if (error) throw new Error(error.message);
+function storageCode(code?: string): string {
+  return ['42P01', '42703', 'PGRST204', 'PGRST205'].includes(code ?? '') ? 'DATABASE_SCHEMA_MISSING' : 'DATABASE_UNREACHABLE';
 }
 
-export async function saveFacilitatorApplication(row: FacilitatorApplication) {
+export async function saveRegistration(registration: Registration): Promise<'submitted' | 'duplicate'> {
   const supabase = getSupabase();
-  if (!supabase) return appendLocal('facilitator_applications.json', row);
-  const { error } = await supabase
-    .from('facilitator_applications')
-    .insert(row);
-  if (error) throw new Error(error.message);
+  if (!supabase) return saveLocalRegistration(path.join(process.cwd(), '.data'), registration);
+  const { error } = await supabase.from('registrations').insert({ ...registration, status: 'new' });
+  if (error?.code === '23505') return 'duplicate';
+  if (error) throw new RegistrationStorageError(storageCode(error.code));
+  return 'submitted';
+}
+
+// Local throttling is explicitly development-only. Production always uses Postgres.
+const localLimits = new Map<string, { count: number; expires: number }>();
+export async function consumeRegistrationRateLimit(email: string, trustedIp?: string): Promise<boolean> {
+  const supabase = getSupabase();
+  if (!supabase) {
+    const now = Date.now();
+    for (const [key, entry] of localLimits) if (entry.expires <= now) localLimits.delete(key);
+    const entry = localLimits.get(email) ?? { count: 0, expires: now + 600_000 };
+    entry.count += 1; localLimits.set(email, entry);
+    return entry.count <= 5;
+  }
+  const secret = process.env.RATE_LIMIT_SECRET?.trim() || process.env.SUPABASE_SERVICE_ROLE_KEY!.trim();
+  const limits: Array<[string, number]> = [[rateLimitKey('email', email, secret), 5]];
+  if (trustedIp) limits.push([rateLimitKey('ip', trustedIp, secret), 20]);
+  for (const [key, limit] of limits) {
+    const { data, error } = await supabase.rpc('consume_registration_rate_limit', {
+      p_key: key, p_limit: limit, p_window_seconds: 600
+    });
+    if (error) throw new RegistrationStorageError(['42883', '42P01', 'PGRST202'].includes(error.code) ? 'RATE_LIMIT_SCHEMA_MISSING' : 'DATABASE_UNREACHABLE');
+    if (data !== true) return false;
+  }
+  return true;
+}
+
+export interface PersistenceHealth {
+  status: 'ok' | 'error';
+  storage: 'supabase' | 'local' | 'unconfigured';
+  code?: string;
+}
+
+/** Read-only checks; returns no credentials, contact details, or record contents. */
+export async function checkPersistenceHealth(): Promise<PersistenceHealth> {
+  const code = checkPersistenceConfiguration() ?? checkCaptchaConfiguration();
+  if (code) return { status: 'error', storage: 'unconfigured', code };
+  try {
+    const supabase = getSupabase();
+    if (!supabase) {
+      await checkLocalStorage(path.join(process.cwd(), '.data'));
+      return { status: 'ok', storage: 'local' };
+    }
+    const { error } = await supabase.from('registrations').select('id,created_at,role,name,email,email_normalized,phone,meeting_language,availability,book_title,book_author,motivation,locale,status,privacy_notice_version', { head: true });
+    if (error) return { status: 'error', storage: 'supabase', code: storageCode(error.code) };
+    const { data, error: healthError } = await supabase.rpc('registration_storage_health');
+    if (healthError || data !== true) return { status: 'error', storage: 'supabase', code: 'RATE_LIMIT_SCHEMA_MISSING' };
+    return { status: 'ok', storage: 'supabase' };
+  } catch (error) {
+    return { status: 'error', storage: process.env.SUPABASE_URL ? 'supabase' : 'local', code: error instanceof RegistrationStorageError ? error.code : 'DATABASE_UNREACHABLE' };
+  }
 }
